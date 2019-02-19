@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Track Calories</title>
+</head>
+
+<body>
+  <div class="hero is-info">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-7-desktop has-text-right">
+            <h1 class="title">Tracalories</h1>
+          </div>
+          <div class="column is-5-desktop has-text-right">
+            <button class="button is-link">Clear All</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-7-desktop">
+          <div class="box">
+            <h3 class="is-size-5">Add Meal / Food Item</h3>
+            <hr class="has-background-info"></hr>
+            <div class="columns section">
+              <div class="column">
+                <div class="field">
+                  <label class="is-size-6">Meal</label>
+                  <div class="control">
+                    <input type="text" class="input is-light" id="mealName" placeholder="Add Item">
+                  </div>
+                </div>
+              </div>
+              <div class="column">
+                <div class="field">
+                  <label class="is-size-6">Calories</label>
+                  <div class="control">
+                    <input type="number" class="input is-light" id="calories" placeholder="Add Calories">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="button is-success has-icon-left" id="add">
+              <span class="fa fa-plus is-size-7"> ADD MEAL</span>
+            </button>
+            <button class="button is-warning has-icon-left" id="update">
+              <span class="fa fa-pencil-square-o is-size-7"> UPDATE MEAL</span>
+            </button>
+            <button class="button is-danger has-icon-left" id="delete">
+              <span class="fa fa-times is-size-7"> DELETE MEAL</span>
+            </button>
+            <button class="is-pulled-right button is-dark has-icon-left" id="back">
+              <span class="fa fa-chevron-circle-left is-size-7"> BACK</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <label class="label title has-text-centered">Total Calories: 
+      <i id="totalCalories">
+        0
+    </i></label>
+  </div>
+  <div class="section">
+    <div class="container" id="uiItemsList">
+      
+    </div>
+  </div>
+
+  <script src="controllers.js"></script>
+</body>
+
+</html>
