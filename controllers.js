@@ -21,6 +21,7 @@ const itemCtrlr = (function(){
       });
     }
     data.totalCalories = a;
+    localStorage.setItem('totalCalories',data.totalCalories);
     return data.totalCalories;
   }
 
@@ -34,6 +35,14 @@ const itemCtrlr = (function(){
   }
 
   const updateMainData = function(item) {
+    let itemsLs = JSON.parse(localStorage.getItem('items'));
+    itemsLs.forEach(function(item2) {
+      if(item2.id === item.id) {
+        item2.name = item.name;
+        item2.calories = item.calories;
+      }
+    });
+    localStorage.setItem('items',JSON.stringify(itemsLs));
     data.items.forEach(function(item1) {
       if(item1.id === item.id) {
         item1.name = item.name;
@@ -51,16 +60,33 @@ const itemCtrlr = (function(){
       }
       i++;
     });
+    let itemsLs = JSON.parse(localStorage.getItem('items'));
+    itemsLs.splice(index,1);
+    localStorage.setItem('items',JSON.stringify(itemsLs));
     data.items.splice(index,1);
   }
 
   const clearData = function() {
     data.items = [];
-    console.log(data.items);
+    localStorage.removeItem('items');
+    localStorage.removeItem('totalCalories');
   }
 
   return {
     displayData: function() {
+      let itemsList = [], tcal = 0;
+      itemsList = JSON.parse(localStorage.getItem('items'));
+      if(itemsList !== null) {
+        itemsList.forEach(function(item) {
+          data.items.push(item);
+        })
+      }
+      tcal = parseInt(localStorage.getItem('totalCalories'));
+      if(tcal !== null) {
+        data.totalCalories = tcal;
+      } else {
+        localStorage.setItem('totalCalories',data.totalCalories);
+      }
       return data;
     },
     createItem: function(id, name, calories) {
@@ -68,6 +94,15 @@ const itemCtrlr = (function(){
       return new Item(id, name, calories);
     },
     pushItem: function(item) {
+      let itemsList = [];let tcal = 0;
+      if(JSON.parse(localStorage.getItem('items')) === null) {
+        itemsList.push(item);
+        localStorage.setItem('items',JSON.stringify(itemsList));
+      } else {
+        itemsList = JSON.parse(localStorage.getItem('items'));
+        itemsList.push(item);
+        localStorage.setItem('items',JSON.stringify(itemsList));
+      }
       data.items.push(item);
     },
     totalCaloriesRes: function() {
@@ -303,6 +338,7 @@ const mainCtrlr = (function(itemCtrlr, uiCtrlr){
   return {
     init: function() {
       uiCtrlr.itemsList(data);
+      uiCtrlr.addTotalCalories(itemCtrlr.totalCaloriesRes());
       loadEventListners();
     }
   };
